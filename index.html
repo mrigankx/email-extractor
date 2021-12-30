@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>email extractor</title>
+</head>
+<body>
+	<textarea name="txtarea" rows="12" cols="100" >hello world this is x@test.com here, hope all are doing good.</textarea>
+	<button type="button">Get Emails</button>
+	<span class="counter"></span>
+	<textarea name="output" rows="12" cols="100" ></textarea>
+	
+	<script type="text/javascript">
+		const rawtext = document.querySelector("textarea[name=txtarea]");
+		const output = document.querySelector("textarea[name='output']");
+		const btn = document.querySelector("button");
+		const counter = document.querySelector(".counter");
+		btn.addEventListener("click", ()=>{
+			let temp = rawtext.value;
+			let reg = /([A-Za-z.-_0-9]+@[a-z0-9A-Z]+\.[A-Z0-9a-z]+)/gi;
+			let emailData = temp.match(reg);
+			let holder = [];
+			for (let i = 0; i < emailData.length; i++){
+				if(holder.indexOf(emailData[i])==-1){
+					holder.push(emailData[i]);
+				}
+			}
+			let tempHolder = holder.join(" || ");
+			counter.innerText = "Emails found:"+holder.length;
+			output.innerText = tempHolder;
+		})
+	</script>
+</body>
+</html>
